@@ -1,50 +1,26 @@
 <?php
-    require_once "pdo.php";
-    $category = new Category();
-    $cateArrs = $category->getData();
+    require_once 'pdo.php';
+    $cate = new Category();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Chỉnh sửa sản phẩm</title>
+    <title>Chỉnh sửa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
     <div class="container mt-3">
-        <a href="index.php" class="btn" style="margin-right: 5px"> < Back</a>
-        <h3>Update Product</h3>
+        <h3>Update Category</h3>
         <?php 
-            $prodId = [
+            $data = [
                 'id' => $_GET['id']
             ];
-            $prod = new Product(null, null, null);
-            $prodArr = $prod->getOneProdData($prodId)[0];
-            $cateId = [
-                'id' => $prodArr['cateId']
-            ];
-            $cateArr = $category->getOneData($cateId);
+            $value = $cate->getOneData($data)['0'];
         ?>
-        <form action="action-update.php?id=<?=$prodArr['prodId'] ?>" method="POST">
+        <form action="./action-edit.php?id=<?=$data['id'] ?>" method="POST">
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input required type="text" class="form-control" name="name" value="<?= $prodArr['prodName']?>">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Price</label>
-            <input required type="text" class="form-control" name="price" value="<?= $prodArr['prodPrice']?>">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Category</label>
-            <select class="form-select" aria-label="Default select example" name="cateId">
-                <option selected value="<?= $cateArr[0]['id']?>"><?= $cateArr[0]['name']?></option>
-                <?php 
-                    foreach($cateArrs as $dataCate)
-                        if($dataCate['id'] == $cateArr['id'])
-                            continue;                             
-                        else{?>
-                            <option value="<?= $dataCate['id']?>"><?= $dataCate['name']?></option>
-                <?php } ?>
-            </select>
+            <input type="text" class="form-control" name="name" value="<?= $value['name']; ?>">
         </div>
         <button type="submit" class="btn btn-success">Update</button>
         </form>

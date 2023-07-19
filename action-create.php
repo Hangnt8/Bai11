@@ -1,8 +1,7 @@
 <?php
     require_once 'pdo.php';
     $cate = new Category();
-    $id = ['id' => $_POST['id']];
-    $cate->deleteData($id);
+    $data = ['name' => $_POST['name']];
+    $cate->createNewData($data);
     header("Location: http://localhost/learn_php/BTVN11/category/index.php");
-?>
 ?>
